@@ -6,4 +6,3 @@ for i in range(10):
             print(", ", end="")
         print(f"{i}{j}", end="")
 print()
-    
