@@ -9,7 +9,7 @@ def roman_to_int(roman_string):
     last_value = 0
 
     for char in reversed(roman_string):
-        value = rom_num.get(char, 0)
+        value = rom_num.get(char)
         if value < last_value:
             results -= value
         else:
