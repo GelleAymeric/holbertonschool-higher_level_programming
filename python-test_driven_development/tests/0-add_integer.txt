@@ -67,3 +67,13 @@ If either argument is a non-integer and non-float, a TypeError is raised:
     >>> add_integer("Hello", "World")
     Traceback (most recent call last):
     TypeError: a must be an integer
+
+    >>> add_integer(float('inf'))
+    Traceback (most recent call last):
+    ...
+    OverflowError: cannot convert float infinity to integer
+
+    >>> add_integer(2, float('nan'))
+    Traceback (most recent call last):
+    ...
+    ValueError: cannot convert float NaN to integer
