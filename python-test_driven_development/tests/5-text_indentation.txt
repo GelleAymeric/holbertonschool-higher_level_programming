@@ -1,0 +1,76 @@
+The ``5-text_indentation`` module
+=================================
+
+Using ``text_indentation``
+--------------------------
+
+Import the function:
+
+    >>> text_indentation = __import__('5-text_indentation').text_indentation
+
+Test with a simple sentence:
+    >>> text_indentation("Hello. How are you?")
+    Hello.
+    <BLANKLINE>
+    How are you?
+    <BLANKLINE>
+
+Test with multiple punctuation marks:
+    >>> text_indentation("Hello. This is a test: it has multiple sentences. Right?")
+    Hello.
+    <BLANKLINE>
+    This is a test:
+    <BLANKLINE>
+    it has multiple sentences.
+    <BLANKLINE>
+    Right?
+    <BLANKLINE>
+
+Test with no punctuation:
+    >>> text_indentation("This is a sentence without any special punctuation")
+    This is a sentence without any special punctuation
+
+Test with empty string:
+    >>> text_indentation("")
+
+Test with only punctuation:
+    >>> text_indentation(".:?")
+    .
+    <BLANKLINE>
+    :
+    <BLANKLINE>
+    ?
+    <BLANKLINE>
+
+Test with non-string input:
+    >>> text_indentation(12345)
+    Traceback (most recent call last):
+    ...
+    TypeError: text must be a string
+
+Test with spaces around punctuation:
+    >>> text_indentation("Hello .   This is a test    :    With spaces   .   ")
+    Hello .
+    <BLANKLINE>
+    This is a test    :
+    <BLANKLINE>
+    With spaces   .
+    <BLANKLINE>
+
+Test with newline characters:
+    >>> text_indentation("Line 1\nLine 2. Line 3")
+    Line 1
+    Line 2.
+    <BLANKLINE>
+    Line 3
+
+Test with multiple consecutive punctuation marks:
+    >>> text_indentation("Hello!!! How are you??? I'm fine...")
+    Hello!!! How are you??? I'm fine...
+    <BLANKLINE>
+
+Test with None:
+    >>> text_indentation(None)
+    Traceback (most recent call last):
+    ...
+    TypeError: text must be a string
