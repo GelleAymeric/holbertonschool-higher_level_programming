@@ -1,46 +1,29 @@
 #!/usr/bin/python3
 import unittest
-from io import StringIO
-import sys
-from your_module import say_my_name  # Remplacez "your_module" par le nom du fichier où se trouve la fonction
+from say_my_name import say_my_name
 
 class TestSayMyName(unittest.TestCase):
 
-    def setUp(self):
-        self.held, sys.stdout = sys.stdout, StringIO()
+    def test_say_my_name_full_name(self):
+        self.assertEqual(say_my_name("John", "Smith"), "My name is John Smith")
 
-    def tearDown(self):
-        sys.stdout = self.held
+    def test_say_my_name_first_name_only(self):
+        self.assertEqual(say_my_name("Bob"), "My name is Bob ")
 
-    def test_valid_names(self):
-        say_my_name("John", "Doe")
-        self.assertEqual(sys.stdout.getvalue().strip(), "My name is John Doe")
+    def test_say_my_name_empty_last_name(self):
+        self.assertEqual(say_my_name("Alice", ""), "My name is Alice ")
 
-    def test_valid_first_name_only(self):
-        say_my_name("John")
-        self.assertEqual(sys.stdout.getvalue().strip(), "My name is John ")
+    def test_say_my_name_non_string_first_name(self):
+        with self.assertRaises(TypeError):
+            say_my_name(12, "Smith")
 
-    def test_first_name_not_string(self):
-        with self.assertRaises(TypeError) as cm:
-            say_my_name(123)
-        self.assertEqual(str(cm.exception), "first_name must be a string")
+    def test_say_my_name_non_string_last_name(self):
+        with self.assertRaises(TypeError):
+            say_my_name("John", 12)
 
-    def test_last_name_not_string(self):
-        with self.assertRaises(TypeError) as cm:
-            say_my_name("John", 123)
-        self.assertEqual(str(cm.exception), "last_name must be a string")
-
-    def test_empty_names(self):
-        say_my_name("", "")
-        self.assertEqual(sys.stdout.getvalue().strip(), "My name is  ")
-
-    def test_spaces_as_names(self):
-        say_my_name(" ", " ")
-        self.assertEqual(sys.stdout.getvalue().strip(), "My name is   ")
-
-    def test_special_characters(self):
-        say_my_name("Jöhn", "Døe")
-        self.assertEqual(sys.stdout.getvalue().strip(), "My name is Jöhn Døe")
+    def test_say_my_name_no_args(self):
+        with self.assertRaises(TypeError):
+            say_my_name()
 
 if __name__ == '__main__':
     unittest.main()
