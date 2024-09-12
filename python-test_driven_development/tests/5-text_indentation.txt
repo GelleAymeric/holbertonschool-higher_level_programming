@@ -67,10 +67,29 @@ Test with newline characters:
 Test with multiple consecutive punctuation marks:
     >>> text_indentation("Hello!!! How are you??? I'm fine...")
     Hello!!! How are you??? I'm fine...
-    <BLANKLINE>
 
 Test with None:
     >>> text_indentation(None)
     Traceback (most recent call last):
     ...
     TypeError: text must be a string
+
+Test with leading and trailing spaces:
+    >>> text_indentation("   Hello.   This is a test.   ")
+    Hello.
+    <BLANKLINE>
+    This is a test.
+    <BLANKLINE>
+
+Test with comma:
+    >>> text_indentation("Hello, world")
+    Hello, world
+
+Test with mixed punctuation:
+    >>> text_indentation("Hello! How are you? I'm fine: thanks.")
+    Hello! How are you?
+    <BLANKLINE>
+    I'm fine:
+    <BLANKLINE>
+    thanks.
+    <BLANKLINE>
