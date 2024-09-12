@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Module for text_indentation"""
+"""Module for text_indentation function"""
 
 
 def text_indentation(text):
@@ -11,23 +11,22 @@ def text_indentation(text):
 
     Raises:
     TypeError: If text is not a string
+
+    Returns:
+    None: This function prints the formatted text, it doesn't return anything
     """
+
     if not isinstance(text, str):
         raise TypeError("text must be a string")
+    i = 0
+    while i < len(text):
+        print(text[i], end="")
 
-    punctuation = ['.', '?', ':']
-    result = ""
-    skip_space = False
+        if text[i] in [".", "?", ":"]:
+            print("\n")
 
-    for char in text:
-        if skip_space and char == ' ':
-            continue
-
-        result += char
-        skip_space = False
-
-        if char in punctuation:
-            result += '\n\n'
-            skip_space = True
-
-    print(result.strip())
+            i += 1
+            while i < len(text) and text[i] == " ":
+                i += 1
+            i -= 1
+        i += 1
