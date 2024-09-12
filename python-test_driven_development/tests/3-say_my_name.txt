@@ -1,29 +1,49 @@
-#!/usr/bin/python3
-import unittest
-from say_my_name import say_my_name
+The ``3-say_my_name`` module
+============================
 
-class TestSayMyName(unittest.TestCase):
+Using ``say_my_name``
+---------------------
 
-    def test_say_my_name_full_name(self):
-        self.assertEqual(say_my_name("John", "Smith"), "My name is John Smith")
+Import the function:
 
-    def test_say_my_name_first_name_only(self):
-        self.assertEqual(say_my_name("Bob"), "My name is Bob ")
+    >>> say_my_name = __import__('3-say_my_name').say_my_name
 
-    def test_say_my_name_empty_last_name(self):
-        self.assertEqual(say_my_name("Alice", ""), "My name is Alice ")
+Test with first name and last name:
+    >>> say_my_name("John", "Smith")
+    My name is John Smith
 
-    def test_say_my_name_non_string_first_name(self):
-        with self.assertRaises(TypeError):
-            say_my_name(12, "Smith")
+Test with only first name:
+    >>> say_my_name("Bob")
+    My name is Bob 
 
-    def test_say_my_name_non_string_last_name(self):
-        with self.assertRaises(TypeError):
-            say_my_name("John", 12)
+Test with empty strings:
+    >>> say_my_name("", "")
+    My name is  
 
-    def test_say_my_name_no_args(self):
-        with self.assertRaises(TypeError):
-            say_my_name()
+Test with non-string first name:
+    >>> say_my_name(12, "White")
+    Traceback (most recent call last):
+    ...
+    TypeError: first_name must be a string
 
-if __name__ == '__main__':
-    unittest.main()
+Test with non-string last name:
+    >>> say_my_name("John", 12)
+    Traceback (most recent call last):
+    ...
+    TypeError: last_name must be a string
+
+Test with no arguments:
+    >>> say_my_name()
+    Traceback (most recent call last):
+    ...
+    TypeError: say_my_name() missing 1 required positional argument: 'first_name'
+
+Test with None as first name:
+    >>> say_my_name(None)
+    Traceback (most recent call last):
+    ...
+    TypeError: first_name must be a string
+
+Test with special characters:
+    >>> say_my_name("Jöhn", "Smîth")
+    My name is Jöhn Smîth
