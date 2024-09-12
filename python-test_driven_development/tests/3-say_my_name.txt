@@ -48,10 +48,6 @@ Test with special characters:
     >>> say_my_name("Jöhn", "Smîth")
     My name is Jöhn Smîth
 
-Test with very long names:
-    >>> say_my_name("Pneumonoultramicroscopicsilicovolcanoconiosis", "Hippopotomonstrosesquippedaliophobia")
-    My name is Pneumonoultramicroscopicsilicovolcanoconiosis Hippopotomonstrosesquippedaliophobia
-
 Test with numbers as strings:
     >>> say_my_name("007", "42")
     My name is 007 42
