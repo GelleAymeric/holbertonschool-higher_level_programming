@@ -35,7 +35,7 @@ Test with empty string:
 
 Test with only punctuation:
     >>> text_indentation(".:?")
-    .
+    . 
     <BLANKLINE>
     :
     <BLANKLINE>
