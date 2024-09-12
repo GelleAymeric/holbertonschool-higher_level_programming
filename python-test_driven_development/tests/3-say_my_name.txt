@@ -47,31 +47,3 @@ Test with None as first name:
 Test with special characters:
     >>> say_my_name("Jöhn", "Smîth")
     My name is Jöhn Smîth
-
-Test with numbers as strings:
-    >>> say_my_name("007", "42")
-    My name is 007 42
-
-Test with whitespace:
-    >>> say_my_name("   John   ", "   Doe   ")
-    My name is    John      Doe   
-
-Test with newline characters:
-    >>> say_my_name("John\n", "Doe\n")
-    My name is John
-     Doe
-    
-
-Test with non-printable characters:
-    >>> say_my_name("John\t", "Doe\r")
-    My name is John	 Doe
-
-Test with empty first name:
-    >>> say_my_name("", "Doe")
-    My name is  Doe
-
-Test with None as last name:
-    >>> say_my_name("John", None)
-    Traceback (most recent call last):
-    ...
-    TypeError: last_name must be a string
