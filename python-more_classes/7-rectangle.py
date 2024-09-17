@@ -13,7 +13,6 @@ class Rectangle:
         Args:
         width: width of the rectangle
         height: height of rectangle
-
         """
         Rectangle.number_of_instances += 1
         self.height = height
@@ -86,7 +85,7 @@ class Rectangle:
         if self.__height == 0 or self.__width == 0:
             return ""
         return "\n".join(
-            str(self.print_symbol * self.__width) for _ in range(self.__height)
+            str("#" * self.__width) for _ in range(self.__height)
         )
 
     def __repr__(self):
