@@ -15,9 +15,9 @@ class Rectangle:
         height: height of rectangle
 
         """
-        Rectangle.number_of_instances += 1
         self.height = height
         self.width = width
+        Rectangle.number_of_instances += 1
 
     @property
     def width(self):
@@ -58,7 +58,11 @@ class Rectangle:
         if value < 0:
             raise ValueError("height must be >= 0")
         self.__height = value
-
+    
+    def __repr__(self):
+        """Return a string representation of the rectangle."""
+        return "Rectangle({}, {})".format(self.width, self.height)
+    
     def area(self):
         """
         Calculate and return the area of the rectangle.
@@ -85,11 +89,8 @@ class Rectangle:
             str(self.print_symbol * self.__width) for _ in range(self.__height)
             )
 
-    def __repr__(self):
-        """Return a string representation of the rectangle."""
-        return "Rectangle({}, {})".format(self.width, self.height)
-
     def __del__(self):
         """ Prints a message indicating that the rectangle is being deleted."""
+        
         print("Bye rectangle...")
         Rectangle.number_of_instances -= 1
