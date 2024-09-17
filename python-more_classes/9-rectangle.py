@@ -96,10 +96,10 @@ class Rectangle:
     @classmethod
 
     def square(cls, size=0):
-        """
-        return new rectangle
-        """
-        return cls(size, size)
+            """
+            return new rectangle
+            """
+            return cls(size, size)
 
     def bigger_or_equal(rect_1, rect_2):
         """
