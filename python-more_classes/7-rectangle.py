@@ -71,13 +71,17 @@ class Rectangle:
     def perimeter(self):
         """
         Calcultate and return perimeter of rectangle
+        
+         Returns:
+        int: The perimeter of the rectangle. Returns 0 if width or height is 0.
         """
         if self.__width == 0 or self.__height == 0:
             return 0
         return (self.__width + self.__height) * 2
 
     def __str__(self):
-        """Returns a string representation of the rectangle
+        """
+        Returns a string representation of the rectangle
         """
         if self.__height == 0 or self.__width == 0:
             return ""
@@ -86,10 +90,14 @@ class Rectangle:
             )
 
     def __repr__(self):
-        """Return a string representation of the rectangle."""
+        """
+        Return a string representation of the rectangle.
+        """
         return "Rectangle({}, {})".format(self.width, self.height)
 
     def __del__(self):
-        """ Prints a message indicating that the rectangle is being deleted."""
+        """ 
+        Prints a message indicating that the rectangle is being deleted
+        """
         print("Bye rectangle...")
         Rectangle.number_of_instances -= 1
