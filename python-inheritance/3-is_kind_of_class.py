@@ -1,6 +1,5 @@
 #!/usr/bin/python3
-"""function that returns if is an instance or not
-"""
+"""function that returns if is an instance or not"""
 
 
 def is_kind_of_class(obj, a_class):
