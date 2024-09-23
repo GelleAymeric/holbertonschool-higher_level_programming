@@ -1,66 +1,86 @@
+How to Use 1-mylist.py
+===========================
+
+This module defines a list of integers using the `MyList` class.
+
+===========================
+# main file: 
 #!/usr/bin/python3
+MyList = __import__('1-my_list').MyList
 
-# File: test_1_my_list.py
+my_list = MyList()
+my_list.append(1)
+my_list.append(4)
+my_list.append(2)
+my_list.append(3)
+my_list.append(5)
+print(my_list)
+my_list.print_sorted()
+print(my_list)
 
-import unittest
-from io import StringIO
-import sys
-from 1-my_list import MyList
+===========================
+# MyList class definition:
+#!/usr/bin/python3
+"""
+contains the MyList class
+"""
 
-class TestMyList(unittest.TestCase):
-    """Test cases for the MyList class."""
+class MyList(list):
+    """a subclass of list"""
+    def __init__(self):
+        """initialize the object"""
+        super().__init__()
 
-    def test_print_sorted_empty_list(self):
-        """Test print_sorted with an empty list."""
-        my_list = MyList()
-        captured_output = StringIO()
-        sys.stdout = captured_output
-        my_list.print_sorted()
-        sys.stdout = sys.__stdout__
-        self.assertEqual(captured_output.getvalue().strip(), "[]")
+    def print_sorted(self):
+        """print the sorted list"""
+        print(sorted(self))
 
-    def test_print_sorted_sorted_list(self):
-        """Test print_sorted with an already sorted list."""
-        my_list = MyList([1, 2, 3, 4, 5])
-        captured_output = StringIO()
-        sys.stdout = captured_output
-        my_list.print_sorted()
-        sys.stdout = sys.__stdout__
-        self.assertEqual(captured_output.getvalue().strip(), "[1, 2, 3, 4, 5]")
 
-    def test_print_sorted_unsorted_list(self):
-        """Test print_sorted with an unsorted list."""
-        my_list = MyList([1, 4, 2, 3, 5])
-        captured_output = StringIO()
-        sys.stdout = captured_output
-        my_list.print_sorted()
-        sys.stdout = sys.__stdout__
-        self.assertEqual(captured_output.getvalue().strip(), "[1, 2, 3, 4, 5]")
+Checking for module docstring:
+    >>> m = __import__("1-my_list").__doc__
+    >>> len(m) > 1
+    True
 
-    def test_print_sorted_negative_numbers(self):
-        """Test print_sorted with negative numbers."""
-        my_list = MyList([-5, -1, -3, -2, -4])
-        captured_output = StringIO()
-        sys.stdout = captured_output
-        my_list.print_sorted()
-        sys.stdout = sys.__stdout__
-        self.assertEqual(captured_output.getvalue().strip(), "[-5, -4, -3, -2, -1]")
+Checking for class docstring:
+    >>> c = __import__("1-my_list").MyList.__doc__
+    >>> len(c) > 1
+    True
 
-    def test_print_sorted_mixed_numbers(self):
-        """Test print_sorted with mixed positive and negative numbers."""
-        my_list = MyList([-5, 1, -3, 2, 0, -4])
-        captured_output = StringIO()
-        sys.stdout = captured_output
-        my_list.print_sorted()
-        sys.stdout = sys.__stdout__
-        self.assertEqual(captured_output.getvalue().strip(), "[-5, -4, -3, 0, 1, 2]")
+Checking for method docstring:
+    >>> mod = __import__("1-my_list").MyList.print_sorted.__doc__
+    >>> len(mod) > 1
+    True
 
-    def test_original_list_unchanged(self):
-        """Test that the original list remains unchanged after print_sorted."""
-        my_list = MyList([3, 1, 2])
-        original = my_list.copy()
-        my_list.print_sorted()
-        self.assertEqual(my_list, original)
+Checking that MyList inherits from list:
+    >>> MyList = __import__('1-my_list').MyList
+    >>> issubclass(MyList, list)
+    True
 
-if __name__ == '__main__':
-    unittest.main()
+Checking that appending works and printing the list:
+    >>> my_list = MyList()
+    >>> my_list.append(1)
+    >>> my_list.append(4)
+    >>> my_list.append(2)
+    >>> my_list.append(3)
+    >>> my_list.append(5)
+    >>> print(my_list)
+    [1, 4, 2, 3, 5]
+
+Checking for sorted order after print_sorted:
+    >>> my_list.print_sorted()
+    [1, 2, 3, 4, 5]
+    >>> print(my_list)
+    [1, 4, 2, 3, 5]
+
+Checking for empty list:
+    >>> empty_list = MyList()
+    >>> empty_list.print_sorted()
+    []
+
+Checking for negative numbers:
+    >>> my_list.append(-1)
+    >>> my_list.append(-10)
+    >>> print(my_list)
+    [1, 4, 2, 3, 5, -1, -10]
+    >>> my_list.print_sorted()
+    [-10, -1, 1, 2, 3, 4, 5]
