@@ -1,59 +1,110 @@
-#!/usr/bin/python3
-"""Unittest for BaseGeometry class"""
-import unittest
-BaseGeometry = __import__('7-base_geometry').BaseGeometry
+How to Use 7-base_geometry.py
+==============================
+
+This module defines a BaseGeometry class.
+
+Importing the class from the module:
+    >>> BaseGeometry = __import__("7-base_geometry").BaseGeometry
+
+Trying to print the area
+    >>> bg = BaseGeometry()
+    >>> bg.area()
+    Traceback (most recent call last):
+    	      ...
+    Exception: area() is not implemented
 
 
-class TestBaseGeometry(unittest.TestCase):
-    """Test cases for BaseGeometry class"""
-
-    def test_area(self):
-        """Test area method"""
-        bg = BaseGeometry()
-        with self.assertRaises(Exception) as context:
-            bg.area()
-        self.assertEqual(str(context.exception), "area() is not implemented")
-
-    def test_integer_validator_valid(self):
-        """Test integer_validator with valid inputs"""
-        bg = BaseGeometry()
-        bg.integer_validator("test", 1)
-        bg.integer_validator("test", 100)
-
-    def test_integer_validator_not_integer(self):
-        """Test integer_validator with non-integer inputs"""
-        bg = BaseGeometry()
-        with self.assertRaises(TypeError) as context:
-            bg.integer_validator("test", "not an integer")
-        self.assertEqual(str(context.exception), "test must be an integer")
-
-        with self.assertRaises(TypeError) as context:
-            bg.integer_validator("test", 1.5)
-        self.assertEqual(str(context.exception), "test must be an integer")
-
-    def test_integer_validator_zero_or_negative(self):
-        """Test integer_validator with zero or negative inputs"""
-        bg = BaseGeometry()
-        with self.assertRaises(ValueError) as context:
-            bg.integer_validator("test", 0)
-        self.assertEqual(str(context.exception), "test must be greater than 0")
-
-        with self.assertRaises(ValueError) as context:
-            bg.integer_validator("test", -1)
-        self.assertEqual(str(context.exception), "test must be greater than 0")
-
-    def test_integer_validator_types(self):
-        """Test integer_validator with different types"""
-        bg = BaseGeometry()
-        with self.assertRaises(TypeError):
-            bg.integer_validator("test", None)
-        with self.assertRaises(TypeError):
-            bg.integer_validator("test", [])
-        with self.assertRaises(TypeError):
-            bg.integer_validator("test", {})
-        with self.assertRaises(TypeError):
-            bg.integer_validator("test", (1,))
+Trying to pass a non-integer argument
+    >>> bg = BaseGeometry()
+    >>> bg.integer_validator("name", "John")
+    Traceback (most recent call last):
+    	      ...
+    TypeError: name must be an integer
 
 
-if __name__ == '__main__':
-    unittest.main()
+Trying to pass a boolean value
+    >>> bg = BaseGeometry()
+    >>> bg.integer_validator("name", True)
+    Traceback (most recent call last):
+    	      ...
+    TypeError: name must be an integer
+
+
+Trying to pass a negative value
+    >>> bg = BaseGeometry()
+    >>> bg.integer_validator("distance", -4)
+    Traceback (most recent call last):
+    	      ...
+    ValueError: distance must be greater than 0
+
+
+Trying to pass a zero value
+    >>> bg = BaseGeometry()
+    >>> bg.integer_validator("age", 0)
+    Traceback (most recent call last):
+    	      ...
+    ValueError: age must be greater than 0
+
+
+Passing a positive integer
+    >>> bg = BaseGeometry()
+    >>> bg.integer_validator("age", 1)
+
+
+Passing one argument to integer_validator
+    >>> bg = BaseGeometry()
+    >>> bg.integer_validator("age")
+    Traceback (most recent call last):
+    	      ...
+    TypeError: integer_validator() missing 1 required positional argument: 'value'
+
+Integer_validator with no arguments
+    >>> bg = BaseGeometry()
+    >>> bg.integer_validator()
+    Traceback (most recent call last):
+    	      ...
+    TypeError: integer_validator() missing 2 required positional arguments: 'name' and 'value'
+
+
+Passing three arguments to integer_validator
+    >>> bg = BaseGeometry()
+    >>> bg.integer_validator("name", 1, 2)
+    Traceback (most recent call last):
+    	      ...
+    TypeError: integer_validator() takes 3 positional arguments but 4 were given
+
+
+Passing one argument to area method
+    >>> bg = BaseGeometry()
+    >>> bg.area(5)
+    Traceback (most recent call last):
+    	      ...
+    TypeError: area() takes 1 positional argument but 2 were given
+
+Passing list to integer_validator
+    >>> bg = BaseGeometry()
+    >>> bg.integer_validator("age", [3])
+    Traceback (most recent call last):
+    	      ...
+    TypeError: age must be an integer
+
+Passing tuple to integer_validator
+    >>> bg = BaseGeometry()
+    >>> bg.integer_validator("age", (1,))
+    Traceback (most recent call last):
+    	      ...
+    TypeError: age must be an integer
+
+Passing dict to integer_validator
+    >>> bg = BaseGeometry()
+    >>> bg.integer_validator("age", {3, 4})
+    Traceback (most recent call last):
+    	      ...
+    TypeError: age must be an integer
+
+Passing None to integer_validator
+    >>> bg = BaseGeometry()
+    >>> bg.integer_validator("age", None)
+    Traceback (most recent call last):
+    	      ...
+    TypeError: age must be an integer
