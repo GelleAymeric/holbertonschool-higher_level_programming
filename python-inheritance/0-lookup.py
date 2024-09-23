@@ -6,8 +6,8 @@ def lookup(obj):
     """
     Args:
         obj: inspect object
-        
+
     Return:
-        list of object
+        list of attributes and methods of the object
     """
-    return dir(list)
+    return dir(obj)

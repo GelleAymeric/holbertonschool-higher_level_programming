@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 """
 This is the "1-my_list" module.
 The 1-my_list module supplies one class, MyList.
@@ -66,4 +68,3 @@ class MyList(list):
 if __name__ == "__main__":
     import doctest
     doctest.testmod()
-    
