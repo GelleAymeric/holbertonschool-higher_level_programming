@@ -3,5 +3,11 @@
 
 
 def lookup(obj):
-    """list of object"""
+    """
+    Args:
+        obj: inspect object
+        
+    Return:
+        list of object
+    """
     return dir(list)
