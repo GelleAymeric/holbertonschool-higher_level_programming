@@ -70,11 +70,10 @@ class Square(Rectangle):
             size (int): The size of the square's sides.
 
         Raises:
-        
+
         """
         self.integer_validator("size", size)
-        
-        super().__init__(size, size)
-        
-        self.__size = size
 
+        super().__init__(size, size)
+
+        self.__size = size
