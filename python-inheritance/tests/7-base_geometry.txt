@@ -1,60 +1,31 @@
-#!/usr/bin/python3
-"""Unittest for BaseGeometry class"""
-import unittest
-BaseGeometry = __import__('7-base_geometry').BaseGeometry
+============================================
+How to use 7-base_geometry.py
+============================================
 
+This library is very simple, since it only has one function called
+ ''integer_validator()''.
 
-class TestBaseGeometry(unittest.TestCase):
-    """Test cases for BaseGeometry class"""
+Numbers:
+========
+''integer_validator()'' returns True if a num is integer.
+:: with positives integers
+   >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
+   >>> bg = BaseGeometry()
 
-    def setUp(self):
-        """Set up for the tests"""
-        self.bg = BaseGeometry()
+:: with positive integer
+   >>> bg.integer_validator("my_int", 12)
 
-    def test_area(self):
-        """Test area() method"""
-        with self.assertRaises(Exception) as context:
-            self.bg.area()
-        self.assertEqual(str(context.exception), "area() is not implemented")
+:: with negative integer
+   >>> bg.integer_validator("number", -12)
+   Traceback (most recent call last):
+   ValueError: number must be greater than 0
 
-    def test_integer_validator_valid(self):
-        """Test integer_validator() with valid inputs"""
-        self.bg.integer_validator("my_int", 12)
-        self.bg.integer_validator("width", 89)
+:: with 3 arguments
+   >>> bg.integer_validator("numbers", 0, 1)
+   Traceback (most recent call last):
+   TypeError: integer_validator() takes 3 positional arguments but 4 were given
 
-    def test_integer_validator_invalid_type(self):
-        """Test integer_validator() with invalid types"""
-        invalid_types = ["John", 3.14, [1, 2, 3], (1, 2), {"key": "value"}, True, None]
-        for value in invalid_types:
-            with self.assertRaises(TypeError) as context:
-                self.bg.integer_validator("name", value)
-            self.assertEqual(str(context.exception), "name must be an integer")
-
-    def test_integer_validator_invalid_value(self):
-        """Test integer_validator() with invalid values"""
-        with self.assertRaises(ValueError) as context:
-            self.bg.integer_validator("age", 0)
-        self.assertEqual(str(context.exception), "age must be greater than 0")
-
-        with self.assertRaises(ValueError) as context:
-            self.bg.integer_validator("distance", -4)
-        self.assertEqual(str(context.exception), "distance must be greater than 0")
-
-    def test_integer_validator_no_args(self):
-        """Test integer_validator() with no arguments"""
-        with self.assertRaises(TypeError):
-            self.bg.integer_validator()
-
-    def test_integer_validator_one_arg(self):
-        """Test integer_validator() with only one argument"""
-        with self.assertRaises(TypeError):
-            self.bg.integer_validator("name")
-
-    def test_integer_validator_three_args(self):
-        """Test integer_validator() with three arguments"""
-        with self.assertRaises(TypeError):
-            self.bg.integer_validator("name", 1, 2)
-
-
-if __name__ == '__main__':
-    unittest.main()
+:: with infinite integer
+   >>> bg.integer_validator("infnumber", int('inf'))
+   Traceback (most recent call last):
+   ValueError: invalid literal for int() with base 10: 'inf'
