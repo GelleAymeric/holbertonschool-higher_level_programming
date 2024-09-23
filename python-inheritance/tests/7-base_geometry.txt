@@ -1,31 +1,101 @@
-============================================
-How to use 7-base_geometry.py
-============================================
+#!/usr/bin/python3
+"""Unittest for BaseGeometry class"""
+import unittest
+BaseGeometry = __import__('7-base_geometry').BaseGeometry
 
-This library is very simple, since it only has one function called
- ''integer_validator()''.
 
-Numbers:
-========
-''integer_validator()'' returns True if a num is integer.
-:: with positives integers
-   >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
-   >>> bg = BaseGeometry()
+class TestBaseGeometry(unittest.TestCase):
+    """Test cases for BaseGeometry class"""
 
-:: with positive integer
-   >>> bg.integer_validator("my_int", 12)
+    def setUp(self):
+        """Set up for the tests"""
+        self.bg = BaseGeometry()
 
-:: with negative integer
-   >>> bg.integer_validator("number", -12)
-   Traceback (most recent call last):
-   ValueError: number must be greater than 0
+    def test_area(self):
+        """Test area() method"""
+        with self.assertRaises(Exception) as context:
+            self.bg.area()
+        self.assertEqual(str(context.exception), "area() is not implemented")
 
-:: with 3 arguments
-   >>> bg.integer_validator("numbers", 0, 1)
-   Traceback (most recent call last):
-   TypeError: integer_validator() takes 3 positional arguments but 4 were given
+    def test_integer_validator_valid(self):
+        """Test integer_validator() with valid inputs"""
+        self.bg.integer_validator("my_int", 12)
+        self.bg.integer_validator("width", 89)
 
-:: with infinite integer
-   >>> bg.integer_validator("infnumber", int('inf'))
-   Traceback (most recent call last):
-   ValueError: invalid literal for int() with base 10: 'inf'
+    def test_integer_validator_negative(self):
+        """Test integer_validator() with negative integer"""
+        with self.assertRaises(ValueError) as context:
+            self.bg.integer_validator("number", -12)
+        self.assertEqual(str(context.exception), "number must be greater than 0")
+
+    def test_integer_validator_zero(self):
+        """Test integer_validator() with zero"""
+        with self.assertRaises(ValueError) as context:
+            self.bg.integer_validator("age", 0)
+        self.assertEqual(str(context.exception), "age must be greater than 0")
+
+    def test_integer_validator_invalid_type(self):
+        """Test integer_validator() with invalid types"""
+        invalid_types = ["John", 3.14, [1, 2, 3], (1, 2), {"key": "value"}, True, None]
+        for value in invalid_types:
+            with self.assertRaises(TypeError) as context:
+                self.bg.integer_validator("name", value)
+            self.assertEqual(str(context.exception), "name must be an integer")
+
+    def test_integer_validator_no_args(self):
+        """Test integer_validator() with no arguments"""
+        with self.assertRaises(TypeError):
+            self.bg.integer_validator()
+
+    def test_integer_validator_one_arg(self):
+        """Test integer_validator() with only one argument"""
+        with self.assertRaises(TypeError):
+            self.bg.integer_validator("name")
+
+    def test_integer_validator_three_args(self):
+        """Test integer_validator() with three arguments"""
+        with self.assertRaises(TypeError) as context:
+            self.bg.integer_validator("numbers", 0, 1)
+        self.assertEqual(str(context.exception), "integer_validator() takes 3 positional arguments but 4 were given")
+
+    def test_integer_validator_inf(self):
+        """Test integer_validator() with infinity"""
+        with self.assertRaises(ValueError) as context:
+            self.bg.integer_validator("infnumber", int('inf'))
+        self.assertEqual(str(context.exception), "invalid literal for int() with base 10: 'inf'")
+
+    def test_integer_validator_nan(self):
+        """Test integer_validator() with NaN"""
+        with self.assertRaises(ValueError) as context:
+            self.bg.integer_validator("nan", int('nan'))
+        self.assertEqual(str(context.exception), "invalid literal for int() with base 10: 'nan'")
+
+    def test_integer_validator_float(self):
+        """Test integer_validator() with float"""
+        with self.assertRaises(TypeError) as context:
+            self.bg.integer_validator("float", 1.5)
+        self.assertEqual(str(context.exception), "float must be an integer")
+
+    def test_integer_validator_string_number(self):
+        """Test integer_validator() with string number"""
+        with self.assertRaises(TypeError) as context:
+            self.bg.integer_validator("string_num", "10")
+        self.assertEqual(str(context.exception), "string_num must be an integer")
+
+    def test_integer_validator_bool(self):
+        """Test integer_validator() with boolean"""
+        with self.assertRaises(TypeError) as context:
+            self.bg.integer_validator("boolean", True)
+        self.assertEqual(str(context.exception), "boolean must be an integer")
+
+    def test_integer_validator_large_number(self):
+        """Test integer_validator() with a very large number"""
+        self.bg.integer_validator("large_num", 10**1000)
+
+    def test_integer_validator_name_as_number(self):
+        """Test integer_validator() with name as a number"""
+        self.bg.integer_validator(42, 10)
+
+
+if __name__ == '__main__':
+    unittest.main()
