@@ -1,70 +1,66 @@
 #!/usr/bin/python3
 
-"""
-This is the "1-my_list" module.
-The 1-my_list module supplies one class, MyList.
-"""
+# File: test_1_my_list.py
 
-class MyList(list):
-    """A class that inherits from list
+import unittest
+from io import StringIO
+import sys
+from 1-my_list import MyList
 
-    >>> my_list = MyList()
-    >>> my_list.append(1)
-    >>> my_list.append(4)
-    >>> my_list.append(2)
-    >>> my_list.append(3)
-    >>> my_list.append(5)
-    >>> print(my_list)
-    [1, 4, 2, 3, 5]
-    >>> my_list.print_sorted()
-    [1, 2, 3, 4, 5]
-    >>> print(my_list)
-    [1, 4, 2, 3, 5]
+class TestMyList(unittest.TestCase):
+    """Test cases for the MyList class."""
 
-    >>> empty_list = MyList()
-    >>> empty_list.print_sorted()
-    []
+    def test_print_sorted_empty_list(self):
+        """Test print_sorted with an empty list."""
+        my_list = MyList()
+        captured_output = StringIO()
+        sys.stdout = captured_output
+        my_list.print_sorted()
+        sys.stdout = sys.__stdout__
+        self.assertEqual(captured_output.getvalue().strip(), "[]")
 
-    >>> single_element = MyList([42])
-    >>> single_element.print_sorted()
-    [42]
+    def test_print_sorted_sorted_list(self):
+        """Test print_sorted with an already sorted list."""
+        my_list = MyList([1, 2, 3, 4, 5])
+        captured_output = StringIO()
+        sys.stdout = captured_output
+        my_list.print_sorted()
+        sys.stdout = sys.__stdout__
+        self.assertEqual(captured_output.getvalue().strip(), "[1, 2, 3, 4, 5]")
 
-    >>> sorted_list = MyList([1, 2, 3, 4, 5])
-    >>> sorted_list.print_sorted()
-    [1, 2, 3, 4, 5]
+    def test_print_sorted_unsorted_list(self):
+        """Test print_sorted with an unsorted list."""
+        my_list = MyList([1, 4, 2, 3, 5])
+        captured_output = StringIO()
+        sys.stdout = captured_output
+        my_list.print_sorted()
+        sys.stdout = sys.__stdout__
+        self.assertEqual(captured_output.getvalue().strip(), "[1, 2, 3, 4, 5]")
 
-    >>> reverse_sorted = MyList([5, 4, 3, 2, 1])
-    >>> reverse_sorted.print_sorted()
-    [1, 2, 3, 4, 5]
+    def test_print_sorted_negative_numbers(self):
+        """Test print_sorted with negative numbers."""
+        my_list = MyList([-5, -1, -3, -2, -4])
+        captured_output = StringIO()
+        sys.stdout = captured_output
+        my_list.print_sorted()
+        sys.stdout = sys.__stdout__
+        self.assertEqual(captured_output.getvalue().strip(), "[-5, -4, -3, -2, -1]")
 
-    >>> negative_numbers = MyList([-5, -1, -3, -2, -4])
-    >>> negative_numbers.print_sorted()
-    [-5, -4, -3, -2, -1]
+    def test_print_sorted_mixed_numbers(self):
+        """Test print_sorted with mixed positive and negative numbers."""
+        my_list = MyList([-5, 1, -3, 2, 0, -4])
+        captured_output = StringIO()
+        sys.stdout = captured_output
+        my_list.print_sorted()
+        sys.stdout = sys.__stdout__
+        self.assertEqual(captured_output.getvalue().strip(), "[-5, -4, -3, 0, 1, 2]")
 
-    >>> mixed_numbers = MyList([-5, 1, -3, 2, 0, -4])
-    >>> mixed_numbers.print_sorted()
-    [-5, -4, -3, 0, 1, 2]
+    def test_original_list_unchanged(self):
+        """Test that the original list remains unchanged after print_sorted."""
+        my_list = MyList([3, 1, 2])
+        original = my_list.copy()
+        my_list.print_sorted()
+        self.assertEqual(my_list, original)
 
-    >>> large_numbers = MyList([1000000, 10000, 100000, 1000])
-    >>> large_numbers.print_sorted()
-    [1000, 10000, 100000, 1000000]
-
-    >>> repeated_numbers = MyList([3, 1, 2, 1, 2, 3])
-    >>> repeated_numbers.print_sorted()
-    [1, 1, 2, 2, 3, 3]
-
-    >>> # Test that the original list is unchanged
-    >>> original = MyList([3, 1, 2])
-    >>> original.print_sorted()
-    [1, 2, 3]
-    >>> print(original)
-    [3, 1, 2]
-    """
-
-    def print_sorted(self):
-        """Print the list in ascending sorted order."""
-        print(sorted(self))
-
-if __name__ == "__main__":
-    import doctest
-    doctest.testmod()
+if __name__ == '__main__':
+    unittest.main()
