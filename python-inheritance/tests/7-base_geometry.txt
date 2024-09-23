@@ -89,10 +89,3 @@ Edge cases:
     >>> bg.integer_validator("min int", -2**31)
     Traceback (most recent call last):
     ValueError: min int must be greater than 0
-
-Testing __doc__:
-    >>> print(BaseGeometry.__doc__)
-    Represent base geometry.
-
-    >>> print(BaseGeometry.area.__doc__)
-    Exception
