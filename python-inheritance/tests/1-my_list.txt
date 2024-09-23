@@ -1,0 +1,69 @@
+"""
+This is the "1-my_list" module.
+The 1-my_list module supplies one class, MyList.
+"""
+
+class MyList(list):
+    """A class that inherits from list
+
+    >>> my_list = MyList()
+    >>> my_list.append(1)
+    >>> my_list.append(4)
+    >>> my_list.append(2)
+    >>> my_list.append(3)
+    >>> my_list.append(5)
+    >>> print(my_list)
+    [1, 4, 2, 3, 5]
+    >>> my_list.print_sorted()
+    [1, 2, 3, 4, 5]
+    >>> print(my_list)
+    [1, 4, 2, 3, 5]
+
+    >>> empty_list = MyList()
+    >>> empty_list.print_sorted()
+    []
+
+    >>> single_element = MyList([42])
+    >>> single_element.print_sorted()
+    [42]
+
+    >>> sorted_list = MyList([1, 2, 3, 4, 5])
+    >>> sorted_list.print_sorted()
+    [1, 2, 3, 4, 5]
+
+    >>> reverse_sorted = MyList([5, 4, 3, 2, 1])
+    >>> reverse_sorted.print_sorted()
+    [1, 2, 3, 4, 5]
+
+    >>> negative_numbers = MyList([-5, -1, -3, -2, -4])
+    >>> negative_numbers.print_sorted()
+    [-5, -4, -3, -2, -1]
+
+    >>> mixed_numbers = MyList([-5, 1, -3, 2, 0, -4])
+    >>> mixed_numbers.print_sorted()
+    [-5, -4, -3, 0, 1, 2]
+
+    >>> large_numbers = MyList([1000000, 10000, 100000, 1000])
+    >>> large_numbers.print_sorted()
+    [1000, 10000, 100000, 1000000]
+
+    >>> repeated_numbers = MyList([3, 1, 2, 1, 2, 3])
+    >>> repeated_numbers.print_sorted()
+    [1, 1, 2, 2, 3, 3]
+
+    >>> # Test that the original list is unchanged
+    >>> original = MyList([3, 1, 2])
+    >>> original.print_sorted()
+    [1, 2, 3]
+    >>> print(original)
+    [3, 1, 2]
+    """
+
+    def print_sorted(self):
+        """Print the list in ascending sorted order."""
+        print(sorted(self))
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
+    
