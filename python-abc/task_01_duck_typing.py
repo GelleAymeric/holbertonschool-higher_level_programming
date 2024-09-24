@@ -26,7 +26,7 @@ class Circle(Shape):
 
     def __init__(self, radius):
         """Initialize the circle with a radius."""
-        self.radius = radius
+        self.radius = abs(radius)
 
     def area(self):
         """Return the area of the circle."""
@@ -56,5 +56,5 @@ class Rectangle(Shape):
 
 def shape_info(shape):
     """Print the area and perimeter of the given shape."""
-    print("Area:", shape.area())
-    print("Perimeter:", shape.perimeter())
+    print("Area: {}".format(shape.area()))
+    print("Perimeter: {}".format(shape.perimeter()))
