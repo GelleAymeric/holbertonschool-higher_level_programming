@@ -1,9 +1,10 @@
 #!/usr/bin/python3
 
-import math
-"""Import mathematical module"""
+
 from abc import ABC, abstractmethod
 """Import abstract base class module"""
+import math
+"""Import mathematical module"""
 
 
 class Shape(ABC):
