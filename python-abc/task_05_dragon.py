@@ -20,14 +20,6 @@ class FlyMixin:
 class Dragon(SwimMixin, FlyMixin):
     """A Dragon class, capable of swimming, flying, and roaring."""
 
-    def swim(self):
-        """method to indicate dragon swimming behavior."""
-        print("The dragon swims!")
-
-    def fly(self):
-        """method to indicate dragon flying behavior."""
-        print("The dragon flies!")
-
     def roar(self):
         """Indicates that the dragon roars."""
         print("The dragon roars!")
