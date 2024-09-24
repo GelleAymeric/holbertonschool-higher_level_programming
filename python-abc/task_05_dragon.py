@@ -14,7 +14,7 @@ class FlyMixin:
 
     def fly(self):
         """Indicates that the creature flies."""
-        print("The creature flies")
+        print("The creature flies!")
 
 
 class Dragon(SwimMixin, FlyMixin):
@@ -26,7 +26,7 @@ class Dragon(SwimMixin, FlyMixin):
 
     def fly(self):
         """method to indicate dragon flying behavior."""
-        print("The dragon flies")
+        print("The dragon flies!")
 
     def roar(self):
         """Indicates that the dragon roars."""
