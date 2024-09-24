@@ -2,7 +2,7 @@
 
 
 class VerboseList(list):
-    """"""
+    """A list that prints messages on modifications."""
 
     def append(self, item):
         super().append(item)

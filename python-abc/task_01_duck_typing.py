@@ -1,51 +1,59 @@
 #!/usr/bin/env python3
 
 import math
-"""import mathematical module"""
+"""Import mathematical module"""
 from abc import ABC, abstractmethod
-"""import abstract"""
+"""Import abstract base class module"""
 
 
 class Shape(ABC):
-    """Create shape class"""
+    """Abstract class for shapes."""
+
     @abstractmethod
     def area(self):
-        """create abstract method area"""
+        """Calculate the area of the shape."""
         pass
 
     @abstractmethod
     def perimeter(self):
-        """create abstract method perimeter"""
+        """Calculate the perimeter of the shape."""
         pass
 
 
 class Circle(Shape):
-    """create class circle"""
-    def __init__(self, radius):
+    """Class representing a circle."""
 
+    def __init__(self, radius):
+        """Initialize the circle with a radius."""
         self.radius = radius
 
     def area(self):
+        """Return the area of the circle."""
         return math.pi * self.radius ** 2
 
     def perimeter(self):
+        """Return the perimeter (circumference) of the circle."""
         return 2 * math.pi * self.radius
 
 
 class Rectangle(Shape):
-    """"""
+    """Class representing a rectangle."""
+
     def __init__(self, width, height):
+        """Initialize the rectangle with width and height."""
         self.width = width
         self.height = height
 
     def area(self):
+        """Return the area of the rectangle."""
         return self.width * self.height
 
     def perimeter(self):
+        """Return the perimeter of the rectangle."""
         return (self.width + self.height) * 2
 
 
-def shape_info(Shape):
-    """"""
-    print("Area : {}".format(Shape.area()))
-    print("Perimeter : {}".format(Shape.perimeter()))
+def shape_info(shape):
+    """Print the area and perimeter of the given shape."""
+    print("Area: {}".format(shape.area()))
+    print("Perimeter: {}".format(shape.perimeter()))
