@@ -2,7 +2,7 @@
 
 class CountedIterator:
     """An iterator that counts the number of items iterated over."""
-    
+
     def __init__(self, iterable):
         """Initialize the iterator with an iterable."""
         self.iterator = iter(iterable)
