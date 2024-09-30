@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""Module defining the Student class."""
 
 
 class Student:
@@ -17,4 +18,9 @@ class Student:
         self.age = age
 
     def to_json(self):
+        """Return a dictionary representation of the Student.
+
+        Returns:
+            dict: A dictionary containing the Student's attributes.
+        """
         return self.__dict__
