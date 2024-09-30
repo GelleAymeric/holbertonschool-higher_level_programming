@@ -2,7 +2,6 @@
 """Module for generating Pascal's triangle."""
 
 
-
 def pascal_triangle(n):
     """
     Generate Pascal's triangle of n rows.
@@ -17,14 +16,14 @@ def pascal_triangle(n):
     if n <= 0:
         return []
 
-    matrix = []
+    triangle = []
 
-    for x in range(n):
-        row = [1] * (x + 1)
+    for i in range(n):
+        row = [1] * (i + 1)
 
-        for y in range(1, x):
-            row[y] = matrix[x-1][y-1] + matrix[x-1][y]
+        for j in range(1, i):
+            row[j] = triangle[i-1][j-1] + triangle[i-1][j]
 
-        matrix.append(row)
+        triangle.append(row)
 
-    return matrix
+    return triangle
