@@ -18,7 +18,6 @@ def fetch_and_print_posts():
             print(f"{post['title']}")
 
 
-
 def fetch_and_save_posts():
     """Fetch posts from the API and save them to a CSV file."""
     url = 'https://jsonplaceholder.typicode.com/posts'
