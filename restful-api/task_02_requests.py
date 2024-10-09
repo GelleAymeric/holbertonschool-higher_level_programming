@@ -9,13 +9,13 @@ def fetch_and_print_posts():
     url = "https://jsonplaceholder.typicode.com/posts"
     response = requests.get(url)
 
-    print(f"Status code: {response.status_code}")
+    print(f"Status Code: {response.status_code}")
 
     if response.status_code == 200:
         posts = response.json()
 
         for post in posts:
-            print(f"{post["title"]}")
+            print(f"{post['title']}")
 
 
 def fetch_and_save_posts():
@@ -31,7 +31,7 @@ def fetch_and_save_posts():
             for post in posts
         ]
 
-        with open("posts.csv", "w", newline='') as csv_file:
+        with open("posts.csv", mode="w", newline='') as csv_file:
             fieldnames = ["id", "title", "body"]
             writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
 
