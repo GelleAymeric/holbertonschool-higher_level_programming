@@ -3,12 +3,11 @@
 import requests
 import csv
 
-url = "https://jsonplaceholder.typicode.com/posts"
-response = requests.get(url)
-
 
 def fetch_and_print_posts():
     """Fetch posts from the API and print them."""
+    url = "https://jsonplaceholder.typicode.com/posts"
+    response = requests.get(url)
 
     print(f"Statut code: {response.status_code}")
 
@@ -16,17 +15,17 @@ def fetch_and_print_posts():
         posts = response.json()
 
         for post in posts:
-            print(
-                f"ID: {post['id']}, Title: {post['title']}, "
-                f"Body: {post['body']}"
-            )
+            print(f"{post['title']}")
+
+
+fetch_and_print_posts()
 
 
 def fetch_and_save_posts():
     """Fetch posts from the API and save them to a CSV file."""
     url = 'https://jsonplaceholder.typicode.com/posts'
     response = requests.get(url)
-    
+
     if response.status_code == 200:
         posts = response.json()
 
@@ -35,15 +34,12 @@ def fetch_and_save_posts():
             for post in posts
         ]
 
-        for post in posts:
-            print(post.get('body'))
-
         with open("posts.csv", "w", newline='') as csv_file:
             fieldnames = ["id", "title", "body"]
             writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
 
             writer.writeheader()
-            
+
             for post in data_posts:
                 writer.writerow(post)
 
