@@ -33,8 +33,10 @@ def fetch_and_save_posts():
         ]
 
         with open("posts.csv", "w", newline='') as csv_file:
-            writer = csv.writer(csv_file)
-            writer.writerow(['id', 'title', 'body'])
+            fieldnames = ["id", "title", "body"]
+            writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
+
+            writer.writeheader()
 
             for post in data_posts:
                 writer.writerow(post)
