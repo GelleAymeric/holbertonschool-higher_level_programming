@@ -31,7 +31,7 @@ def fetch_and_save_posts():
             for post in posts
         ]
 
-        with open("posts.csv", "w", newline='') as csv_file:
+        with open("posts.csv", mode="w", newline='') as csv_file:
             fieldnames = ["id", "title", "body"]
             writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
 
