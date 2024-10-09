@@ -17,6 +17,7 @@ def fetch_and_print_posts():
         for post in posts:
             print(f"{post['title']}")
 
+
 fetch_and_print_posts()
 
 
@@ -41,7 +42,6 @@ def fetch_and_save_posts():
 
             for post in data_posts:
                 writer.writerow(post)
-
 
 
 fetch_and_save_posts()
