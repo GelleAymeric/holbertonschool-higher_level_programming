@@ -18,8 +18,6 @@ def fetch_and_print_posts():
             print(f"{post['title']}")
 
 
-fetch_and_print_posts()
-
 
 def fetch_and_save_posts():
     """Fetch posts from the API and save them to a CSV file."""
@@ -35,13 +33,12 @@ def fetch_and_save_posts():
         ]
 
         with open("posts.csv", "w", newline='') as csv_file:
-            fieldnames = ["id", "title", "body"]
-            writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
-
-            writer.writeheader()
+            writer = csv.writer(csv_file)
+            writer.writerow(['id', 'title', 'body'])
 
             for post in data_posts:
                 writer.writerow(post)
 
 
+fetch_and_print_posts()
 fetch_and_save_posts()
