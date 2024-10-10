@@ -49,9 +49,10 @@ class Server(BaseHTTPRequestHandler):
             self.send_response(404)
             self.send_header('Content-type', 'text/plain')
             self.end_headers()
-            self.wfile.write(b"404 Not Found")
+            self.wfile.write(b"Endpoint not found")
 
 
-with HTTPServer(("", PORT), Server) as httpd:
-    print(f"Serving at port {PORT}")
-    httpd.serve_forever()
+if __name__ == "__main__":
+    with HTTPServer(("", PORT), Server) as httpd:
+        print(f"Serving at port {PORT}")
+        httpd.serve_forever()
