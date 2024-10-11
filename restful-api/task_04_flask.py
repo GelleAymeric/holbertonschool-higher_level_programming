@@ -1,4 +1,5 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, json
+
 
 app = Flask(__name__)
 
@@ -25,19 +26,19 @@ def home():
     return "Welcome to the Flask API!"
 
 
-@app.route('/data', methods=['GET'])
+@app.route('/data')
 def get_username():
     """Return a list of usernames."""
     return jsonify(list(users.keys()))
 
 
-@app.route('/status', methods=['GET'])
+@app.route('/status')
 def status():
     """Return the status of the API."""
     return "OK"
 
 
-@app.route('/users/<username>', methods=['GET'])
+@app.route('/users/<username>')
 def name(username):
     """Return user profile for the given username."""
     profile = users.get(username)
@@ -55,9 +56,9 @@ def add_user():
 
     if not username:
         return jsonify({"error": "Username is required"}), 400
-
-    users[username] = user_data
-    return jsonify({"message": "User added", "user": user_data}), 201
+    else:
+        users[username] = user_data
+        return jsonify({"message": "User added", "user": user_data}), 201
 
 
 if __name__ == "__main__":
