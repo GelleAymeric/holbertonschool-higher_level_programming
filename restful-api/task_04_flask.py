@@ -18,6 +18,7 @@ users = {
     }
 }
 
+
 @app.route('/')
 def home():
     """Return a welcome message for the API."""
