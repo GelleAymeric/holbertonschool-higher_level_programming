@@ -5,8 +5,7 @@ from flask_jwt_extended import jwt_required, \
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
-app.config['JWT_SECRET_KEY'] = 'AyGel32@'
-jwt = JWTManager(app)
+
 auth = HTTPBasicAuth()
 
 users = {
@@ -39,8 +38,11 @@ def verify_password(username, password):
 def basic_protected():
     return jsonify({"message": "Basic Auth: Access Granted"}), 200
 
+app.config['JWT_SECRET_KEY'] = 'AyGel32@'
+jwt = JWTManager(app)
 
-@app.route('/login', methods=['POST'])
+
+@app.route("/login", methods=["POST"])
 def login():
     username = request.json.get("username", None)
     password = request.json.get("password", None)
@@ -49,40 +51,22 @@ def login():
         return jsonify({"message": "Missing username or password"}), 400
     
     user = users.get(username)
-    if user and check_password_hash(user['password'], password):
-        access_token = create_access_token(identity={
-                    "username": username,
-                    "role": user['role']
-                })
+    if user and check_password_hash(user["password"], password):
+        access_token = create_access_token(identity=username)
+        return jsonify(access_token=access_token), 200
+    else:
+        return jsonify({"message": "Bad username or password"}), 401
 
-        return jsonify(
-            {
-                "message": "Access granted",
-                "access_token": access_token
-                }, 200)
-
-    return jsonify({"message": "Invalid username or password"}), 401
-
-
-@app.route('/jwt-protected', methods=['GET'])
+@app.route("/admin-only")
 @jwt_required()
-def jwt_protect():
-    current_user = get_jwt_identity()
+def admin_only():
     
-    if current_user is None:
-        return jsonify(
-        {
-            "message": "JWT Auth: Access Granted",
-            "user": current_user
-                    }), 200
-
-
-@app.route('/admin-only', methods=['GET'])
-@jwt_required()
-def admin():
     current_user = get_jwt_identity()
-    if current_user is None or current_user['role'] != 'admin':
-        return jsonify({"message": "403 Unauthorized"}), 403
+    if current_user not in users:
+        return jsonify({"error": "User not found"}), 404
+
+    if users[current_user]['role'] != 'admin':
+        return jsonify({"error": "Admin access required"}), 403
     return jsonify({"message": "Admin Access: Granted"}), 200
 
 
