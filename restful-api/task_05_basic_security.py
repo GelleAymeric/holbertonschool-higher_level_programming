@@ -22,6 +22,9 @@ users = {
           }
   }
 
+@app.route("/")
+def home():
+    return "Welcome to the Flask API!"
 
 @auth.verify_password
 def verify_password(username, password):
