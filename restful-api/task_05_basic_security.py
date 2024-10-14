@@ -44,7 +44,7 @@ def home():
     return "Welcome to the Flask API!"
 
 
-@app.route("/basic-protected")
+@app.route("/basic-protected", methods=['GET'])
 @auth.login_required
 def basic_protected():
     """Return a message if basic authentication is successful."""
@@ -72,14 +72,14 @@ def login():
         return jsonify({"message": "Bad username or password"}), 401
 
 
-@app.route("/jwt-protected")
+@app.route("/jwt-protected", methods=['GET'])
 @jwt_required()
 def jwt_protected():
     """Return a message if JWT authentication is successful."""
     return "JWT Auth: Access Granted"
 
 
-@app.route("/admin-only")
+@app.route("/admin-only", methods=['GET'])
 @jwt_required()
 def admin_only():
     """Return a message if the current user is an admin."""
