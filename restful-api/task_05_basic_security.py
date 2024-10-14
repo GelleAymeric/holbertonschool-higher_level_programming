@@ -41,10 +41,11 @@ def basic_protected():
 
 
 @app.route('/login', methods=['POST'])
-def identification():
+def login():
     username = request.json.get("username", None)
     password = request.json.get("password", None)
-
+    if not username or not password:
+        return jsonify({"message": "Missing username or password"}), 400
     user = users.get(username)
     if user and check_password_hash(user['password'], password):
         access_token = create_access_token(identity={
@@ -76,6 +77,8 @@ def jwt_protect():
 @jwt_required()
 def admin():
     current_user = get_jwt_identity()
+    if current_user not in users:
+        return jsonify({"error": "User not found"}), 404
 
     if current_user['role'] != 'admin':
         return jsonify({"message": "403 Unauthorized"}), 403
