@@ -14,12 +14,12 @@ from flask_jwt_extended import (
 users = {
     "user1": {
         "username": "user1",
-        "password": generate_password_hash("password"),
+        "password": generate_password_hash("0000"),
         "role": "user"
     },
     "admin1": {
         "username": "admin1",
-        "password": generate_password_hash("admin_password"),
+        "password": generate_password_hash("1111"),
         "role": "admin"
     }
 }
@@ -65,7 +65,7 @@ def login():
         return jsonify({"message": "Missing username or password"}), 400
 
     user = users.get(username)
-    if user and check_password_hash(user["password"], password):
+    if user and check_password_hash(user[username]["password"], password):
         access_token = create_access_token(identity=username)
         return jsonify(access_token=access_token), 200
     else:
