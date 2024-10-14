@@ -56,10 +56,10 @@ jwt = JWTManager(app)
 def login():
     username = request.json.get("username", None)
     password = request.json.get("password", None)
-    
+
     if not username or not password:
         return jsonify({"message": "Missing username or password"}), 400
-    
+
     user = users.get(username)
     if user and check_password_hash(user["password"], password):
         access_token = create_access_token(identity=username)
