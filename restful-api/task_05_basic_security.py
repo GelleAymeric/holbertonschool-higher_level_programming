@@ -14,12 +14,12 @@ from flask_jwt_extended import (
 users = {
     "user1": {
         "username": "user1",
-        "password": generate_password_hash("0000"),
+        "password": generate_password_hash("hello"),
         "role": "user"
     },
     "admin1": {
         "username": "admin1",
-        "password": generate_password_hash("1111"),
+        "password": generate_password_hash("hola"),
         "role": "admin"
     }
 }
@@ -124,4 +124,4 @@ def handle_needs_fresh_token_error(err):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
