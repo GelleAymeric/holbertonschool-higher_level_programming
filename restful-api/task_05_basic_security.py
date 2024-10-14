@@ -14,12 +14,12 @@ from flask_jwt_extended import (
 users = {
     "user1": {
         "username": "user1",
-        "password": generate_password_hash("hello"),
+        "password": generate_password_hash("password"),
         "role": "user"
     },
     "admin1": {
         "username": "admin1",
-        "password": generate_password_hash("hola"),
+        "password": generate_password_hash("admin_password"),
         "role": "admin"
     }
 }
@@ -44,7 +44,7 @@ def home():
     return "Welcome to the Flask API!"
 
 
-@app.route("/basic-protected", methods=['GET'])
+@app.route("/basic-protected")
 @auth.login_required
 def basic_protected():
     """Return a message if basic authentication is successful."""
@@ -60,10 +60,10 @@ def login():
     """Authenticate user and return a JWT if successful."""
     username = request.json.get("username", None)
     password = request.json.get("password", None)
-
+    
     if not username or not password:
         return jsonify({"message": "Missing username or password"}), 400
-
+    
     user = users.get(username)
     if user and check_password_hash(user["password"], password):
         access_token = create_access_token(identity=username)
@@ -72,14 +72,15 @@ def login():
         return jsonify({"message": "Bad username or password"}), 401
 
 
-@app.route("/jwt-protected", methods=['GET'])
+@app.route("/jwt-protected")
 @jwt_required()
 def jwt_protected():
     """Return a message if JWT authentication is successful."""
     return "JWT Auth: Access Granted"
 
 
-@app.route("/admin-only", methods=['GET'])
+
+@app.route("/admin-only")
 @jwt_required()
 def admin_only():
     """Return a message if the current user is an admin."""
@@ -124,4 +125,4 @@ def handle_needs_fresh_token_error(err):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
