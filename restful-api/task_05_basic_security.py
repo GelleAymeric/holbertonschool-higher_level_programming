@@ -90,7 +90,7 @@ def admin_only():
 
     if users[current_user]['role'] != 'admin':
         return jsonify({"error": "Admin access required"}), 403
-    return jsonify({"message": "Admin Access: Granted"}), 200
+    return "Admin Access: Granted"
 
 
 @jwt.unauthorized_loader
@@ -124,4 +124,4 @@ def handle_needs_fresh_token_error(err):
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
