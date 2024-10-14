@@ -60,10 +60,10 @@ def login():
     """Authenticate user and return a JWT if successful."""
     username = request.json.get("username", None)
     password = request.json.get("password", None)
-    
+
     if not username or not password:
         return jsonify({"message": "Missing username or password"}), 400
-    
+
     user = users.get(username)
     if user and check_password_hash(user["password"], password):
         access_token = create_access_token(identity=username)
@@ -77,7 +77,6 @@ def login():
 def jwt_protected():
     """Return a message if JWT authentication is successful."""
     return "JWT Auth: Access Granted"
-
 
 
 @app.route("/admin-only")
