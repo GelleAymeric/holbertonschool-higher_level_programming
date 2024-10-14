@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-from flask import Flask, request, jsonify
+'''API Security and Authentication Techniques'''
+from flask import Flask, jsonify, request
+from werkzeug.security import generate_password_hash, check_password_hash
 from flask_httpauth import HTTPBasicAuth
 from flask_jwt_extended import (
     create_access_token,
@@ -7,11 +9,7 @@ from flask_jwt_extended import (
     jwt_required,
     JWTManager,
 )
-from werkzeug.security import generate_password_hash, check_password_hash
 
-app = Flask(__name__)
-app.config['JWT_SECRET_KEY'] = 'AyGel32@'
-jwt = JWTManager(app)
 
 users = {
     "user1": {
@@ -26,13 +24,15 @@ users = {
     }
 }
 
+
+app = Flask(__name__)
 auth = HTTPBasicAuth()
 
 
 @auth.verify_password
 def verify_password(username, password):
     user = users.get(username)
-    if user and check_password_hash(user['password'], password):
+    if user and check_password_hash(user["password"], password):
         return username
     return None
 
@@ -42,20 +42,24 @@ def home():
     return "Welcome to the Flask API!"
 
 
-@app.route('/basic-protected', methods=['GET'])
+@app.route("/basic-protected")
 @auth.login_required
 def basic_protected():
-    return jsonify({"message": "Basic Auth: Access Granted"}), 200
+    return "Basic Auth: Access Granted"
+
+
+app.config["JWT_SECRET_KEY"] = "my_secret_key"
+jwt = JWTManager(app)
 
 
 @app.route("/login", methods=["POST"])
 def login():
     username = request.json.get("username", None)
     password = request.json.get("password", None)
-
+    
     if not username or not password:
         return jsonify({"message": "Missing username or password"}), 400
-
+    
     user = users.get(username)
     if user and check_password_hash(user["password"], password):
         access_token = create_access_token(identity=username)
@@ -64,16 +68,15 @@ def login():
         return jsonify({"message": "Bad username or password"}), 401
 
 
-@app.route("/jwt-protected", methods=["GET"])
+@app.route("/jwt-protected")
 @jwt_required()
 def jwt_protected():
-    return jsonify({"message": "JWT Auth: Access Granted"}), 200
+    return "JWT Auth: Access Granted"
 
 
-@app.route("/admin-only", methods=["GET"])
+@app.route("/admin-only")
 @jwt_required()
 def admin_only():
-
     current_user = get_jwt_identity()
 
     if current_user not in users:
@@ -81,7 +84,6 @@ def admin_only():
 
     if users[current_user]['role'] != 'admin':
         return jsonify({"error": "Admin access required"}), 403
-
     return jsonify({"message": "Admin Access: Granted"}), 200
 
 
@@ -111,4 +113,4 @@ def handle_needs_fresh_token_error(err):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
