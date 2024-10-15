@@ -19,7 +19,7 @@ users = {
     },
     "admin1": {
         "username": "admin1",
-        "password": generate_password_hash("admin_password"),
+        "password": generate_password_hash("password"),
         "role": "admin"
     }
 }
