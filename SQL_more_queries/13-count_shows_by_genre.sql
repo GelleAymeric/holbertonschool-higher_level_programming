@@ -1,4 +1,4 @@
--- Write a script that lists all genres from hbtn_0d_tvshows and displays the number of shows linked to each.
+-- script that lists all genres from hbtn_0d_tvshows and displays the number of shows
 
 SELECT tv_genres.name AS genre, COUNT(tv_shows.id) AS number_of_shows
 FROM tv_genres
