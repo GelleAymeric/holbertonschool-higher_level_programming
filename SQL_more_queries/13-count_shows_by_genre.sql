@@ -2,8 +2,6 @@
 
 CREATE DATABASE IF NOT EXISTS hbtn_0d_tvshows;
 
-USE hbtn_0d_tvshows;
-
 CREATE TABLE IF NOT EXISTS tv_shows (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL
