@@ -17,10 +17,9 @@ if __name__ == "__main__":
         port=3306
     )
     cursor = db.cursor()
-    cursor.execute("SELECT * FROM states ORDER BY id ASC")
+    cursor.execute("SELECT * FROM states WHERE name = '{}' ORDER BY id ASC".format(sys.argv[4]))
     states = cursor.fetchall()
     for state in states:
-        if state == 'N*':
-            print(state)
+        print(state)
     cursor.close()
     db.close()
