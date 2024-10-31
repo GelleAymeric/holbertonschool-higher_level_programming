@@ -1,16 +1,20 @@
 #!/usr/bin/python3
+"""Defines the State class and links to the MySQL table 'states'."""
+from sqlalchemy import Column, Integer, String, create_engine
+from sqlalchemy.orm import declarative_base
 
-import sys
-from model_state import Base, State
-from sqlalchemy import Column, Integer, String
-from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
 
+
 class State(Base):
-    """ Class definition for State """
+    """Class definition for State."""
     __tablename__ = 'states'
-    id = Column(Integer, autoincrement=True, primary_key=True, unique=True, nullable=False)
+    
+    id = Column(Integer,
+                primary_key=True,
+                autoincrement=True,
+                nullable=False,
+                unique=True
+                )
     name = Column(String(128), nullable=False)
-    
-    
