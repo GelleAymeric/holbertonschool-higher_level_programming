@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Product Display</title>
+</head>
+
+<body>
+    {% include 'header.html' %}
+    <h1>Product Display</h1>
+    {% if product %}
+    <h2>{{ product.name }}</h2>
+    <p>{{ product.description }}</p>
+    <p>Price: ${{ product.price }}</p>
+    {% else %}
+    <p>No product found.</p>
+    {% endif %}
+    {% include 'footer.html' %}
+
+</html>
