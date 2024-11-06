@@ -1,40 +1,50 @@
-from flask import Flask, render_template
-from flask import request
+from flask import Flask, render_template, request
 import json
 import csv
 
 app = Flask(__name__)
 
-def json_file(file_name):
-    with open(file_name, 'r') as file:
-        data = json.load(file)
-    return data
+def read_json_file(filename):
+    with open(filename) as f:
+        return json.load(f)
 
-def csv_file(file_name):
-    with open(file_name, 'r') as file:
-        reader = csv.DictReader(file)
-        return list(reader)
-
-@app.route("/products")
-def product_display():
-    source = request.args.get('source', 'products.csv')
-    product_id = request.args.get('product_id')
+def read_csv_file(filename):
     products = []
-    
+    with open(filename) as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            products.append({
+                "id": int(row["id"]),
+                "name": row["name"],
+                "category": row["category"],
+                "price": float(row["price"])
+            })
+    return products
+
+@app.route('/products')
+def products():
+    source = request.args.get('source')
+    product_id = request.args.get('id', type=int)
+
     if source == 'json':
-        products = json_file('products.json')
+        try:
+            products = read_json_file('products.json')
+        except FileNotFoundError:
+            return render_template('product_display.html', error_message="JSON file not found.")
     elif source == 'csv':
-        products = csv_file('products.csv')
+        try:
+            products = read_csv_file('products.csv')
+        except FileNotFoundError:
+            return render_template('product_display.html', error_message="CSV file not found.")
     else:
-        return render_template('product_display.html', products=products)
+        return render_template('product_display.html', error_message="Wrong source")
 
     if product_id:
-        for product in products:
-            if product.get('product_id') == product_id:
-                return render_template('product_display.html', product=product)
-        return 'Product not found', 404
+        products = [product for product in products if product['id'] == product_id]
+        if not products:
+            return render_template('product_display.html', error_message="Product not found")
+
     return render_template('product_display.html', products=products)
 
-    
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
