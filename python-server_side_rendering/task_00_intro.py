@@ -44,4 +44,3 @@ def generate_invitations(template, attendees):
             file.write(content)
 
         print(f"Invitation generated: {file_name}")
-        return
